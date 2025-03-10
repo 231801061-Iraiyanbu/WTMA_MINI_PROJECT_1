@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Signup Form</h2>
+        <form id="signupForm">
+            <input type="text" id="firstName" placeholder="First Name">
+            <span class="error" id="firstNameError"></span>
+
+            <input type="text" id="lastName" placeholder="Last Name">
+            <span class="error" id="lastNameError"></span>
+
+            <input type="email" id="email" placeholder="Email">
+            <span class="error" id="emailError"></span>
+
+            <input type="date" id="dob">
+            <span class="error" id="dobError"></span>
+
+            <input type="number" id="age" placeholder="Age">
+            <span class="error" id="ageError"></span>
+
+            <div class="gender-container">
+                <label class="gender-label">Gender:</label>
+                <div class="gender-options">
+                    <label><input type="radio" name="gender" value="Male"> Male</label>
+                    <label><input type="radio" name="gender" value="Female"> Female</label>
+                </div>
+                <span class="error" id="genderError"></span>
+            </div>
+
+            <input type="text" id="phone" placeholder="Phone Number">
+            <span class="error" id="phoneError"></span>
+
+            <textarea id="address" placeholder="Address"></textarea>
+            <span class="error" id="addressError"></span>
+
+            <button type="button" onclick="validateForm()">Signup</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>Submitted Data</h2>
+        <table id="dataTable">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Phone Number</th>
+                <th>Address</th>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function validateForm() {
+    let isValid = true;
+
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let email = document.getElementById("email").value;
+    let dob = document.getElementById("dob").value;
+    let age = document.getElementById("age").value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+    let phone = document.getElementById("phone").value;
+    let address = document.getElementById("address").value;
+
+    if (firstName.length >= 4) {
+        document.getElementById("firstNameError").innerText = "";
+    } else {
+        document.getElementById("firstNameError").innerText = "First name must be at least 4 characters long";
+        isValid = false;
+    }
+
+    if (lastName.length >= 1) {
+        document.getElementById("lastNameError").innerText = "";
+    } else {
+        document.getElementById("lastNameError").innerText = "Last name cannot be empty";
+        isValid = false;
+    }
+
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById("emailError").innerText = "";
+    } else {
+        document.getElementById("emailError").innerText = "Invalid email format";
+        isValid = false;
+    }
+
+    if (dob) {
+        document.getElementById("dobError").innerText = "";
+    } else {
+        document.getElementById("dobError").innerText = "Please enter a valid date";
+        isValid = false;
+    }
+
+    if (age >= 10 && age <= 99) {
+        document.getElementById("ageError").innerText = "";
+    } else {
+        document.getElementById("ageError").innerText = "Age must be two digits";
+        isValid = false;
+    }
+
+    if (gender) {
+        document.getElementById("genderError").innerText = "";
+    } else {
+        document.getElementById("genderError").innerText = "Please select a gender";
+        isValid = false;
+    }
+
+    if (/^[0-9]{10}$/.test(phone)) {
+        document.getElementById("phoneError").innerText = "";
+    } else {
+        document.getElementById("phoneError").innerText = "Phone number must be 10 digits";
+        isValid = false;
+    }
+
+    if (address) {
+        document.getElementById("addressError").innerText = "";
+    } else {
+        document.getElementById("addressError").innerText = "Address cannot be empty";
+        isValid = false;
+    }
+    if (!isValid) return;
+    let table = document.getElementById("dataTable");
+    let row = table.insertRow(-1);
+    row.insertCell(0).innerText = firstName;
+    row.insertCell(1).innerText = lastName;
+    row.insertCell(2).innerText = email;
+    row.insertCell(3).innerText = dob;
+    row.insertCell(4).innerText = age;
+    row.insertCell(5).innerText = gender.value;
+    row.insertCell(6).innerText = phone;
+    row.insertCell(7).innerText = address;
+    document.getElementById("signupForm").reset();
+}
+
+    </script>
+</body>
+</html>
